@@ -110,7 +110,6 @@ function Header({ title, onMenuClick }) {
 
   return (
     <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-slate-100 bg-white/95 px-4 backdrop-blur sm:px-7 lg:px-9">
-      {/* Page title */}
       <div className="flex min-w-0 items-center gap-3">
         <button
           type="button"
@@ -131,9 +130,7 @@ function Header({ title, onMenuClick }) {
         </div>
       </div>
 
-      {/* Header actions */}
       <div className="ml-3 flex items-center gap-3 sm:gap-5">
-        {/* Notifications */}
         <div ref={notificationRef} className="relative">
           <button
             type="button"
@@ -253,7 +250,6 @@ function Header({ title, onMenuClick }) {
 
         <div className="hidden h-9 w-px bg-slate-200 sm:block" />
 
-        {/* Admin profile */}
         <div ref={profileRef} className="relative">
           <button
             type="button"

@@ -35,9 +35,6 @@ function Login() {
 
     setError("");
     setIsLoading(true);
-
-    // Simulate a short loading period for this frontend demo.
-    // Replace this with a real authentication API request when available.
     setTimeout(() => {
       navigate("/dashboard");
     }, 1000);
