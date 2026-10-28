@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Activity,
@@ -55,6 +55,24 @@ function Dashboard() {
       iconColor: "bg-amber-50 text-amber-600",
     },
   ];
+
+useEffect(() => {
+  const handleNavigate = (event) => {
+    setActiveNav(event.detail.page);
+  };
+
+  const handleLogoutEvent = () => {
+    setShowLogoutModal(true);
+  };
+
+  window.addEventListener("medicare:navigate", handleNavigate);
+  window.addEventListener("medicare:logout", handleLogoutEvent);
+
+  return () => {
+    window.removeEventListener("medicare:navigate", handleNavigate);
+    window.removeEventListener("medicare:logout", handleLogoutEvent);
+  };
+}, []);
 
   const getGreeting = () => {
     const hour = new Date().getHours();

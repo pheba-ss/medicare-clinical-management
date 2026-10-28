@@ -23,7 +23,6 @@ function ClinicalRecords() {
     <section className="space-y-6">
       <div>
         <p className="text-sm font-medium text-clinic-teal">PATIENT DOCUMENTATION</p>
-        <h1 className="mt-1 text-2xl font-bold text-clinic-dark">Clinical Records</h1>
         <p className="mt-2 text-sm text-slate-500">Review sample consultation notes and patient documentation.</p>
       </div>
 

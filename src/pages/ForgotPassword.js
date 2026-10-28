@@ -4,6 +4,7 @@ import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
+  AlertCircle,
   Mail,
 } from "lucide-react";
 import Brand from "../components/Brand";
@@ -86,7 +87,6 @@ function ForgotPassword() {
                     setError("");
                     setMessage("");
                   }}
-                  required
                   disabled={loading}
                   aria-invalid={Boolean(error)}
                   aria-describedby={
@@ -100,8 +100,9 @@ function ForgotPassword() {
                 <p
                   id="reset-email-error"
                   role="alert"
-                  className="mt-2 text-sm text-red-600"
+                  className="flex items-center mt-2 gap-2 text-sm text-red-600"
                 >
+                  <AlertCircle size={17} />
                   {error}
                 </p>
               )}

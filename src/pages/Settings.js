@@ -36,7 +36,6 @@ function Settings() {
     <section className="space-y-6">
       <div>
         <p className="text-sm font-medium text-clinic-teal">PREFERENCES</p>
-        <h1 className="mt-1 text-2xl font-bold text-clinic-dark">Settings</h1>
         <p className="mt-2 text-sm text-slate-500">Manage your profile, clinic information, and notifications.</p>
       </div>
 

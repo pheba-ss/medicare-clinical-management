@@ -1,30 +1,46 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff, ArrowRight, AlertCircle } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  ArrowRight,
+  AlertCircle,
+  LoaderCircle,
+} from "lucide-react";
 import Brand from "../components/Brand";
 
 function Login() {
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (isLoading) return;
 
     if (!email.trim() || !password.trim()) {
       setError("Please enter your email and password.");
       return;
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       setError("Please enter a valid email address.");
       return;
     }
 
     setError("");
-    navigate("/dashboard");
+    setIsLoading(true);
+
+    // Simulate a short loading period for this frontend demo.
+    // Replace this with a real authentication API request when available.
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 1000);
   };
 
   return (
@@ -83,8 +99,12 @@ function Login() {
                 autoComplete="email"
                 placeholder="you@hospital.com"
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-clinic-teal focus:ring-2 focus:ring-teal-100"
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                  setError("");
+                }}
+                disabled={isLoading}
+                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-clinic-teal focus:ring-2 focus:ring-teal-100 disabled:cursor-not-allowed disabled:bg-slate-50"
               />
             </div>
 
@@ -100,7 +120,8 @@ function Login() {
                 <button
                   type="button"
                   onClick={() => navigate("/forgot-password")}
-                  className="text-sm font-semibold text-clinic-teal hover:underline"
+                  disabled={isLoading}
+                  className="text-sm font-semibold text-clinic-teal hover:underline disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Forgot password?
                 </button>
@@ -113,23 +134,38 @@ function Login() {
                   autoComplete="current-password"
                   placeholder="Enter your password"
                   value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 pr-12 text-sm outline-none focus:border-clinic-teal focus:ring-2 focus:ring-teal-100"
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                    setError("");
+                  }}
+                  disabled={isLoading}
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 pr-12 text-sm outline-none focus:border-clinic-teal focus:ring-2 focus:ring-teal-100 disabled:cursor-not-allowed disabled:bg-slate-50"
                 />
 
                 <button
                   type="button"
-                  aria-label="Toggle password visibility"
+                  aria-label={
+                    showPassword ? "Hide password" : "Show password"
+                  }
+                  aria-pressed={showPassword}
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
+                  disabled={isLoading}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-clinic-teal disabled:cursor-not-allowed"
                 >
-                  {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
+                  {showPassword ? (
+                    <EyeOff size={19} />
+                  ) : (
+                    <Eye size={19} />
+                  )}
                 </button>
               </div>
             </div>
 
             {error && (
-              <p className="flex items-center gap-2 text-sm text-red-600">
+              <p
+                role="alert"
+                className="flex items-center gap-2 text-sm text-red-600"
+              >
                 <AlertCircle size={17} />
                 {error}
               </p>
@@ -137,9 +173,21 @@ function Login() {
 
             <button
               type="submit"
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-clinic-teal px-4 py-3 font-semibold text-white transition hover:bg-clinic-dark"
+              disabled={isLoading}
+              aria-busy={isLoading}
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-clinic-teal px-4 py-3 font-semibold text-white transition hover:bg-clinic-dark disabled:cursor-not-allowed disabled:opacity-80"
             >
-              Sign in <ArrowRight size={18} />
+              {isLoading ? (
+                <>
+                  <LoaderCircle size={19} className="animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                <>
+                  Sign in
+                  <ArrowRight size={18} />
+                </>
+              )}
             </button>
           </form>
 
